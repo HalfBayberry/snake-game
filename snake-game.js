@@ -243,6 +243,10 @@ function resetGame() {
     draw();
 }
 
+// 触摸控制相关变量
+let touchStartX = 0;
+let touchStartY = 0;
+
 // 键盘控制
 document.addEventListener('keydown', (e) => {
     // 防止反向移动
@@ -261,6 +265,55 @@ document.addEventListener('keydown', (e) => {
             break;
     }
 });
+
+// 触摸滑动控制（移动端）
+canvas.addEventListener('touchstart', handleTouchStart, false);
+canvas.addEventListener('touchmove', handleTouchMove, false);
+
+function handleTouchStart(event) {
+    touchStartX = event.touches[0].clientX;
+    touchStartY = event.touches[0].clientY;
+}
+
+function handleTouchMove(event) {
+    if (!touchStartX || !touchStartY) {
+        return;
+    }
+
+    const touchEndX = event.touches[0].clientX;
+    const touchEndY = event.touches[0].clientY;
+
+    const diffX = touchStartX - touchEndX;
+    const diffY = touchStartY - touchEndY;
+
+    // 判断是水平滑动还是垂直滑动
+    if (Math.abs(diffX) > Math.abs(diffY)) {
+        // 水平滑动
+        if (diffX > 0 && direction !== 'right') {
+            // 向左滑动
+            nextDirection = 'left';
+        } else if (diffX < 0 && direction !== 'left') {
+            // 向右滑动
+            nextDirection = 'right';
+        }
+    } else {
+        // 垂直滑动
+        if (diffY > 0 && direction !== 'down') {
+            // 向上滑动
+            nextDirection = 'up';
+        } else if (diffY < 0 && direction !== 'up') {
+            // 向下滑动
+            nextDirection = 'down';
+        }
+    }
+
+    // 重置触摸起点
+    touchStartX = null;
+    touchStartY = null;
+
+    // 阻止页面滚动
+    event.preventDefault();
+}
 
 // 按钮事件监听器
 startBtn.addEventListener('click', () => {
