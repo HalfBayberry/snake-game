@@ -19,6 +19,7 @@ body {
     border-radius: 10px;
     padding: 20px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    position: relative; /* Needed for mobile controls positioning */
 }
 
 h1 {
@@ -102,4 +103,57 @@ button:active {
 .food {
     background-color: #FF5252;
     border-radius: 50%;
+}
+
+/* 屏幕方向按键 */
+#mobile-controls {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 8px;
+    width: 150px;
+    height: 150px;
+    z-index: 10;
+}
+
+#mobile-controls .control-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, 0.2);
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    border-radius: 8px;
+    font-size: 24px;
+    color: white;
+    user-select: none;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+#mobile-controls .control-btn:active {
+    background-color: rgba(255, 255, 255, 0.4);
+}
+
+#up-btn {
+    grid-column: 2;
+    grid-row: 1;
+}
+
+#left-btn {
+    grid-column: 1;
+    grid-row: 2;
+}
+
+#down-btn {
+    grid-column: 2;
+    grid-row: 3;
+}
+
+#right-btn {
+    grid-column: 3;
+    grid-row: 2;
 }
