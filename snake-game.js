@@ -315,6 +315,23 @@ function handleTouchMove(event) {
     event.preventDefault();
 }
 
+// 方向键控制事件监听器
+document.getElementById('up-btn').addEventListener('click', () => {
+    if (direction !== 'down') nextDirection = 'up';
+});
+
+document.getElementById('down-btn').addEventListener('click', () => {
+    if (direction !== 'up') nextDirection = 'down';
+});
+
+document.getElementById('left-btn').addEventListener('click', () => {
+    if (direction !== 'right') nextDirection = 'left';
+});
+
+document.getElementById('right-btn').addEventListener('click', () => {
+    if (direction !== 'left') nextDirection = 'right';
+});
+
 // 按钮事件监听器
 startBtn.addEventListener('click', () => {
     if (!gameRunning) {
